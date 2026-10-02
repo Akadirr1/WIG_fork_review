@@ -1,3 +1,5 @@
+> **Not:** Bu graph bu reponun değil, `mavlink/qgroundcontrol` v5.1.5 (commit 3a67d31f) kaynağının ilgili klasörlerinin grafiğidir: src/Vehicle, src/FlyView, src/FirmwarePlugin (PX4 hariç), src/Utilities/Audio, src/MAVLink, src/Toolbar ve src/Comms (MockLink hariç). Yalnızca C++ dosyaları işlendi. `source_file` yolları QGC repo köküne göredir. `ANALIZ_QGC_YKI.md` raporunu hazırlarken kullanıldı.
+
 # Graph Report - qgc-focus  (2026-10-02)
 
 ## Corpus Check
