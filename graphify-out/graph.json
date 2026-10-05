@@ -445,7 +445,7 @@
       "node_kind": "heading",
       "norm_label": "6.1 dogal giris noktas\u0131",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L274"
+      "source_location": "L276"
     },
     {
       "id": "analiz_vtol_tiltrotor_6_2_quadplane_koduyla_\u00e7ak\u0131\u015fmalar_1_3_m_de_seyir_i\u00e7in",
@@ -457,7 +457,7 @@
       "node_kind": "heading",
       "norm_label": "6.2 quadplane koduyla cak\u0131smalar (1\u20133 m'de seyir icin)",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L293"
+      "source_location": "L295"
     },
     {
       "id": "analiz_vtol_tiltrotor_6_yeni_y\u00fczey_etkisi_modu",
@@ -469,7 +469,7 @@
       "node_kind": "heading",
       "norm_label": "6. yeni yuzey etkisi modu",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L272"
+      "source_location": "L274"
     },
     {
       "id": "analiz_vtol_tiltrotor_7_gcs_mesajlar\u0131_statustext",
@@ -481,7 +481,7 @@
       "node_kind": "heading",
       "norm_label": "7. gcs mesajlar\u0131 (statustext)",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L315"
+      "source_location": "L317"
     },
     {
       "id": "analiz_vtol_tiltrotor_8_sitl_denemesi",
@@ -493,7 +493,7 @@
       "node_kind": "heading",
       "norm_label": "8. sitl denemesi",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L347"
+      "source_location": "L349"
     },
     {
       "id": "analiz_vtol_tiltrotor_arduplane_4_7_1_de_tiltrotor_vtol_wig_i_\u00e7in_fizibilite",
@@ -517,7 +517,7 @@
       "node_kind": "heading",
       "norm_label": "bizim yazmam\u0131z gerekenler",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L431"
+      "source_location": "L433"
     },
     {
       "id": "analiz_vtol_tiltrotor_haz\u0131r_olanlar",
@@ -529,7 +529,7 @@
       "node_kind": "heading",
       "norm_label": "haz\u0131r olanlar",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L416"
+      "source_location": "L418"
     },
     {
       "id": "analiz_vtol_tiltrotor_ko\u015fu_1_haz\u0131r_parametreler_hi\u00e7bir_de\u011fi\u015fiklik_yok",
@@ -541,7 +541,7 @@
       "node_kind": "heading",
       "norm_label": "kosu 1: haz\u0131r parametreler (hicbir degisiklik yok)",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L365"
+      "source_location": "L367"
     },
     {
       "id": "analiz_vtol_tiltrotor_ko\u015fu_2_yaln\u0131zca_q_assist_speed_12_do\u011frulama",
@@ -553,7 +553,7 @@
       "node_kind": "heading",
       "norm_label": "kosu 2: yaln\u0131zca `q_assist_speed=12` (dogrulama)",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L394"
+      "source_location": "L396"
     },
     {
       "id": "analiz_vtol_tiltrotor_k\u0131sa_\u00f6zet",
@@ -673,7 +673,7 @@
       "node_kind": "heading",
       "norm_label": "4.3 assist tiltrotorda ne yap\u0131yor?",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L200"
+      "source_location": "L202"
     },
     {
       "id": "analiz_vtol_tiltrotor_4_4_y\u00fczey_etkisinde_g\u00fcvenlik_a\u011f\u0131_olarak_kullan\u0131labilir_mi",
@@ -685,7 +685,7 @@
       "node_kind": "heading",
       "norm_label": "4.4 yuzey etkisinde guvenlik ag\u0131 olarak kullan\u0131labilir mi?",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L210"
+      "source_location": "L212"
     },
     {
       "id": "analiz_vtol_tiltrotor_4_dikey_motorlar\u0131n_ileri_u\u00e7u\u015fta_yard\u0131ma_girmesi_assist",
@@ -757,7 +757,7 @@
       "node_kind": "heading",
       "norm_label": "5.1 mesafe sensoru nas\u0131l kullan\u0131l\u0131yor?",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L223"
+      "source_location": "L225"
     },
     {
       "id": "analiz_vtol_tiltrotor_5_2_yere_ya_da_suya_de\u011fme_nas\u0131l_alg\u0131lan\u0131yor",
@@ -769,7 +769,7 @@
       "node_kind": "heading",
       "norm_label": "5.2 yere ya da suya degme nas\u0131l alg\u0131lan\u0131yor?",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L240"
+      "source_location": "L242"
     },
     {
       "id": "analiz_vtol_tiltrotor_5_3_dalgal\u0131_y\u00fczeyde_alg\u0131lamay\u0131_yan\u0131ltabilecek_\u015feyler",
@@ -781,7 +781,7 @@
       "node_kind": "heading",
       "norm_label": "5.3 dalgal\u0131 yuzeyde alg\u0131lamay\u0131 yan\u0131ltabilecek seyler",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L252"
+      "source_location": "L254"
     },
     {
       "id": "analiz_vtol_tiltrotor_5_vtol_ini\u015f",
@@ -793,7 +793,7 @@
       "node_kind": "heading",
       "norm_label": "5. vtol inis",
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L221"
+      "source_location": "L223"
     }
   ],
   "links": [
@@ -1289,7 +1289,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L200",
+      "source_location": "L202",
       "weight": 1.0
     },
     {
@@ -1300,7 +1300,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L210",
+      "source_location": "L212",
       "weight": 1.0
     },
     {
@@ -1311,7 +1311,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L223",
+      "source_location": "L225",
       "weight": 1.0
     },
     {
@@ -1322,7 +1322,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L240",
+      "source_location": "L242",
       "weight": 1.0
     },
     {
@@ -1333,7 +1333,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L252",
+      "source_location": "L254",
       "weight": 1.0
     },
     {
@@ -1344,7 +1344,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L274",
+      "source_location": "L276",
       "weight": 1.0
     },
     {
@@ -1355,7 +1355,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L293",
+      "source_location": "L295",
       "weight": 1.0
     },
     {
@@ -1366,7 +1366,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L365",
+      "source_location": "L367",
       "weight": 1.0
     },
     {
@@ -1377,7 +1377,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L394",
+      "source_location": "L396",
       "weight": 1.0
     },
     {
@@ -1421,7 +1421,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L221",
+      "source_location": "L223",
       "weight": 1.0
     },
     {
@@ -1432,7 +1432,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L272",
+      "source_location": "L274",
       "weight": 1.0
     },
     {
@@ -1454,7 +1454,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L315",
+      "source_location": "L317",
       "weight": 1.0
     },
     {
@@ -1465,7 +1465,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L347",
+      "source_location": "L349",
       "weight": 1.0
     },
     {
@@ -1476,7 +1476,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L416",
+      "source_location": "L418",
       "weight": 1.0
     },
     {
@@ -1487,7 +1487,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_VTOL_TILTROTOR.md",
-      "source_location": "L431",
+      "source_location": "L433",
       "weight": 1.0
     },
     {
@@ -1503,5 +1503,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "73ecc8957edac3189826a3ad7296c185f488ebed"
+  "built_at_commit": "a49959e1f44f473ad419b8ecd6be744ca7e645f4"
 }
