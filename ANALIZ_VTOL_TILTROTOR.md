@@ -12,7 +12,7 @@
 
 - **Kalkış yüksekliği yalnızca EKF'den geliyor** (varsayılan kaynak baro). Mesafe sensörü kalkışta hiç kullanılmıyor. Alt sınır yok: 2–5 m'lik bir kalkış kodun izin verdiği bir şey.
 - **Tiltrotor ileri geçişi iki aşamalı.** `AIRSPEED_WAIT` aşamasından `TIMER` aşamasına geçmek için hava hızının `AIRSPEED_MIN`'in üstüne çıkması ve assist'in kapalı olması gerekiyor. `TIMER`'dan `DONE`'a geçiş, motorlar tam ileri dönünce oluyor. `AIRSPEED_WAIT` boyunca tilt açısı `Q_TILT_MAX` ile sınırlı.
-- **Geçiş kodunda minimum yükseklik kontrolü yok.** 5–10 m'de geçiş kodun izin verdiği bir şey. Ancak `TIMER` aşamasında VTOL motorlar açık döngüde kısılıyor. O aşamada yüksekliği yalnızca TECS tutuyor (pitch en fazla ±8°).
+- **Geçiş kodunda minimum yükseklik kontrolü yok.** 5–10 m'de geçiş kodun izin verdiği bir şey. Ancak `TIMER` aşamasında VTOL motorlar açık döngüde kısılıyor. O aşamada yüksekliği auto-throttle modlarda yalnızca TECS tutuyor (pitch en fazla ±8°); FBWA'da pilot tutuyor.
 - **Geçiş başarısızlık zaman aşımı varsayılan olarak kapalı** (`Q_TRANS_FAIL=0`). Açılırsa varsayılan eylem **QLAND**, yani suya dikey iniş.
 - **SITL'de hazır `quadplane-tilttri` ayarlarıyla geçiş hiç tamamlanmadı.** Araç 72 saniye geçiş durumunda kaldı ve hiçbir uyarı mesajı gelmedi. Neden: `Q_ASSIST_SPEED=18` m/s, aracın 45° tilt ile ulaşabildiği yaklaşık 15 m/s'nin üstünde. Yalnızca `Q_ASSIST_SPEED=12` yapınca geçiş 5,3 s'de tamamlandı.
 - **Assist, yüzey etkisinde güvenlik ağı olarak zayıf.**
@@ -37,7 +37,7 @@
 | AUTO `NAV_VTOL_TAKEOFF` hedefi (varsayılan) | Hedef = o anki EKF AMSL yüksekliği + komuttaki irtifa. Komutun frame'i (relative/terrain) **yok sayılıyor**. | `ArduPlane/quadplane.cpp:3396-3397` |
 | `Q_OPTIONS` bit 3 (RESPECT_TAKEOFF_FRAME) | Hedef ABSOLUTE frame'e çevriliyor. Araç zaten hedefin üstündeyse kalkış adımı atlanıyor. | `ArduPlane/quadplane.cpp:3388-3394` |
 | Silahsızken | Hedef her döngüde yeniden hesaplanıyor. Referans, arming anındaki EKF yüksekliği oluyor. | `ArduPlane/quadplane.cpp:3480-3484` |
-| Tırmanma | AUTO'da hedef irtifasız, sabit tırmanma hızı: `Q_WP_SPD_UP` (2,5 m/s). | `ArduPlane/quadplane.cpp:3243`, `:3258-3260`; `libraries/AC_WPNav/AC_WPNav.cpp:12`, `:74` |
+| Tırmanma | AUTO'da hedef irtifasız, sabit tırmanma hızı: `Q_WP_SPD_UP` (2,5 m/s). Dikey hız sınırı `Q_PILOT_SPD_UP` ile kuruluyor (o da 2,5); fiilî hız ikisinin küçüğü. | `ArduPlane/quadplane.cpp:3243`, `:3258-3260`, `:3403`; `libraries/AC_WPNav/AC_WPNav.cpp:12`, `:74` |
 | GUIDED kalkış | Konum hedefi kullanılıyor: EKF origin'e göre hedef + 5 cm. | `ArduPlane/quadplane.cpp:3244-3257` |
 | Mesafe sensörü / terrain | Kalkış hedefinde de bitiş kontrolünde de **kullanılmıyor**. `do_vtol_takeoff` ve `verify_vtol_takeoff` içinde çağrı yok. | `ArduPlane/quadplane.cpp:3375-3530` |
 | `Q_WP_RFND_USE` | Varsayılanı 1, ama Plane'de etkisiz. ArduPlane, `set_rangefinder_terrain_U_*` fonksiyonunu hiç çağırmıyor. | `libraries/AC_WPNav/AC_WPNav.cpp:29`; `AC_WPNav.h:26`, `:30` |
@@ -49,7 +49,7 @@
 |---|---|---|---|
 | `current_loc.alt >= next_WP_loc.alt` (marj yok, kontrol 10 Hz) | Kalkış tamam. Ardından `transition->restart()`, TECS pitch sınırı ±`Q_TRAN_PIT_MAX` ve `set_alt_target_current()` geliyor. | **Yok** (yalnızca "Mission: N ..." çıkıyor) | `ArduPlane/quadplane.cpp:3505-3511`; `ArduPlane/Plane.cpp:75` |
 | `Q_TKOFF_FAIL_SCL > 0` ve süre aşıldı (limit = max(tahmini süre × ölçek, 5 s)) | QLAND (`VTOL_FAILED_TAKEOFF`) | CRITICAL "Failed to complete takeoff within time limit" | `ArduPlane/quadplane.cpp:3432`, `:3492-3496`; varsayılan 0 (kapalı) `:391` |
-| `Q_TKOFF_ARSP_LIM > 0` ve hava hızı bu değerin üstünde | QLAND | CRITICAL "Failed to complete takeoff, excessive wind" | `ArduPlane/quadplane.cpp:3499-3503`; varsayılan 0, `:400` |
+| `Q_TKOFF_ARSP_LIM > 0` ve hava hızı bu değerin üstünde | QLAND | CRITICAL "Failed to complete takeoff, excessive wind" | `ArduPlane/quadplane.cpp:3499-3503`; varsayılan 0, `:400`. Kontrol `plane.airspeed.get_airspeed()` ile yapılıyor, yani yalnızca gerçek hava hızı sensörüyle çalışıyor; sensörsüz araçta etkisiz. |
 
 ### 1.3 Su üstünde birkaç metrelik kalkış mümkün mü?
 
@@ -62,7 +62,7 @@ Alçak kalkıştan sonra devreye girebilecek mekanizmalar:
 | `Q_NAVALT_MIN` | 0 (`quadplane.cpp:475`) | Bu yüksekliğe kadar roll ve pitch sıfırda tutuluyor, yatay konum tutulmuyor. | `ArduPlane/quadplane.cpp:3212-3227` |
 | `Q_ASSIST_ALT` | 0 (`quadplane.cpp:409`) | Kalkış yüksekliğinden büyükse geçiş hiç bitmiyor (§2.4, §4). | `ArduPlane/VTOL_Assist.cpp:104-113` |
 | `Q_LAND_FINAL_ALT` | 6 m (`quadplane.cpp:132`) | 6 m'nin altında başlayan her VTOL inişi doğrudan final hızıyla (0,5 m/s) iniyor. | `ArduPlane/quadplane.cpp:3604-3615` |
-| QRTL tırmanması | `Q_RTL_ALT_MIN` 10 (`:508`), `Q_RTL_ALT` 15 (`:180`) | QRTL önce en az `constrain(10, 6, 15)` = 10 m'ye tırmanıyor. Geçiş başarısızlığında `Q_TRANS_FAIL_ACT=1` seçilmişse bu da geçerli. | `ArduPlane/mode_qrtl.cpp:26-49` |
+| QRTL tırmanması | `Q_RTL_ALT_MIN` 10 (`:508`), `Q_RTL_ALT` 15 (`:180`) | VTOL motorlar çalışıyorsa QRTL önce `MAX(Q_RTL_ALT·dist/MAX(radius,dist), constrain(10, 6, 15))` yüksekliğine tırmanıyor: en az 10 m, dönüş yarıçapının dışında 15 m. Yükseklik `RangeFinderUse::CLIMB` ile ölçülüyor. Geçiş başarısızlığında `Q_TRANS_FAIL_ACT=1` seçilmişse bu da geçerli. | `ArduPlane/mode_qrtl.cpp:18-49` (ölçüm `:36`) |
 | Gaz bastırma (throttle suppression) | — | VTOL motorlar ≥2 s kapalıysa, stick 0 ise, \|vz\| < 1 m/s ise ve yükseklik ≤ 5 m ise motorlar GROUND_IDLE'a alınıyor. AUTO VTOL kalkışı bundan muaf. | `ArduPlane/quadplane.cpp:1856-1917` (5 m: `:1904`; muafiyet: `:1909-1911`) |
 
 **Su için dikkat (çıkarım):**
@@ -79,7 +79,7 @@ Alçak kalkıştan sonra devreye girebilecek mekanizmalar:
   - MANUAL, ACRO, TRAINING → VTOL motorlar kapanıyor ve `force_transition_complete()` çağrılıyor.
   - **Diğer bütün sabit kanat modları** → `transition->update()`.
 - `Tiltrotor_Transition`, `update()` fonksiyonunu ezmiyor (`ArduPlane/tiltrotor.h:138`). Yani tiltrotorda da `SLT_Transition::update()` çalışıyor (`ArduPlane/quadplane.cpp:1478`).
-- Q modundayken `VTOL_update()` durumu `AIRSPEED_WAIT` olarak kuruyor (`ArduPlane/quadplane.cpp:1696-1716`). Sonraki sabit kanat moduna geçilince ileri geçiş kendiliğinden başlıyor.
+- Q modundayken `VTOL_update()` durumu `AIRSPEED_WAIT` olarak kuruyor; yalnızca yerdeyken ve `throttle_wait` iken `DONE` (`ArduPlane/quadplane.cpp:1696-1716`, `:1702-1705`). Sonraki sabit kanat moduna geçilince ileri geçiş kendiliğinden başlıyor.
 - AUTO'da VTOL kalkışı bitince `transition->restart()` çağrılıyor (`ArduPlane/quadplane.cpp:3508`).
 
 ### 2.2 Durum makinesi
@@ -123,7 +123,7 @@ Akış (`ArduPlane/quadplane.cpp:1550-1581`):
 - Kontrol **yalnızca `AIRSPEED_WAIT`'te** yapılıyor; `TIMER`'da yapılmıyor.
 - Süre aşılınca CRITICAL "Transition failed, exceeded time limit" mesajı **bir kez** gönderiliyor (`:1555`). Ardından QLAND (`:1567`) ya da QRTL (`:1571-1572`) geliyor.
 - Mod değişikliğinin nedeni log'a `ModeReason::VTOL_FAILED_TRANSITION` olarak yazılıyor.
-- Sayaç assist başladığında da çalışmaya başlıyor ve yalnızca `DONE`'da sıfırlanıyor (`:1503-1505`, `:1530`, `:1636`). Bu yüzden **ileri uçuştaki uzun bir assist de QLAND'a yol açabilir.**
+- Sayaç assist başladığında da çalışmaya başlıyor. Sabit kanat modlarında yalnızca `DONE`'da sıfırlanıyor (`:1503-1505`, `:1530`, `:1636`). VTOL modları (`VTOL_update`, `:1701`) ve MANUAL/ACRO/TRAINING (`force_transition_complete`, `:4633`) da sıfırlıyor. Bu yüzden **ileri uçuştaki uzun bir assist de QLAND'a yol açabilir.**
 - `Q_TRANS_FAIL=0` iken araç süresiz olarak `AIRSPEED_WAIT`'te kalabiliyor. SITL koşu 1'de 72 s böyle kaldı.
 
 Geçiş sırasında pitch sınırı (`ArduPlane/quadplane.cpp:4668-4703`). Bu sınır **yalnızca `does_auto_throttle()` modlarında** uygulanıyor (`:4680-4683`); FBWA'da sınır yok.
@@ -145,7 +145,7 @@ Geçiş sırasında pitch sınırı (`ArduPlane/quadplane.cpp:4668-4703`). Bu s�
 | Aşama | Yüksekliği kim tutuyor? | Kaynak | Referans |
 |---|---|---|---|
 | `AIRSPEED_WAIT` | VTOL motorlar, kapalı döngü Z kontrolcüsüyle (`hold_hover → run_z_controller`). Tırmanma talebi: auto-throttle modlarda TECS irtifa hatası × 0,1, 2 s'lik rampayla, `Q_WP_SPD_UP/DN` ile sınırlı. TECS da paralel çalışıyor (pitch ±3°). | EKF (inertial nav) | `ArduPlane/quadplane.cpp:1595-1600`, `:1434-1456`, `:1040-1066` |
-| `TIMER` | **Yalnızca TECS** (pitch ±8°). VTOL gazı açık döngüde azalıyor. | EKF | `ArduPlane/quadplane.cpp:1673`, `:4694` |
+| `TIMER` | Auto-throttle modlarda **yalnızca TECS** (pitch ±8°); FBWA gibi manuel gazlı modlarda TECS çalışmıyor, yüksekliği pilot tutuyor (`quadplane.cpp:4680-4683`; `Plane.cpp:638`). VTOL gazı açık döngüde azalıyor. | EKF | `ArduPlane/quadplane.cpp:1673`, `:4694` |
 | `DONE` | Yalnızca TECS | EKF | `ArduPlane/quadplane.cpp:1684` |
 
 - TECS irtifa hatası: `target_altitude.amsl_cm - adjusted_altitude_cm()`. Terrain-following açıksa terrain verisi kullanılıyor (`ArduPlane/altitude.cpp:389-399`).
@@ -159,7 +159,7 @@ Geçiş sırasında pitch sınırı (`ArduPlane/quadplane.cpp:4668-4703`). Bu s�
 **Alçak geçişin riskleri:**
 1. **`Q_ASSIST_ALT`, geçiş yüksekliğine eşit ya da büyükse** assist hiç kapanmıyor. Geçiş `AIRSPEED_WAIT`'te takılıyor ve tilt `Q_TILT_MAX`'a geri kalkıyor (`ArduPlane/VTOL_Assist.cpp:104-113`; `quadplane.cpp:1497-1502`, `:1584`).
 2. **`TIMER`'da Z kontrolü yok.** Motorlar ileri dönerken yükseklik TECS'e (±8° pitch) kalıyor. 5 m'de hata payı küçük (çıkarım).
-   - SITL koşu 2'de geçiş 10,1–13,3 m arasında sorunsuz bitti. İleri uçuş ayağında en düşük yükseklik 9,7 m oldu. 5 m'de deneme yapmadım.
+   - SITL koşu 2'de geçiş 10,1–13,3 m arasında sorunsuz bitti. Görev ayaklarında en düşük yükseklik 10,7 m oldu (9,7 m, VTOL yaklaşma sırasında ölçüldü). 5 m'de deneme yapmadım.
 3. **`Q_OPTIONS` bit 0 (LEVEL_TRANSITION)** tırmanmayı ≤ 0 ile sınırlamayı tiltrotorlara uygulamıyor (`ArduPlane/quadplane.cpp:1597-1599`). Yalnızca roll sınırı uygulanıyor (`:4485-4494`).
 
 ---
@@ -195,7 +195,9 @@ Mesafe sensörünün "in range" kapısı (`ArduPlane/altitude.cpp:750-797`):
 - 10 iyi örnek gerekiyor. Her biri **ilk okumadan** maksimum menzilin %5'inden fazla farklı olmalı.
 - Maksimum menzilin %20'sinden büyük bir sıçrama sayacı sıfırlıyor.
 - Tek bir kötü örnek `in_range` bayrağını hemen düşürüyor.
-- Çıkarım: 40 m menzilli bir sensörde ilk okumadan 2 m fark gerekiyor. Su yüzeyinden dönüş kesildiğinde yükseklik kaynağı sıra 6'ya, yani baroya düşüyor.
+- `initial_range`, boot'tan sonraki ilk iyi okuma (`altitude.cpp:751-753`). Yalnızca sabit kanat `do_land()` (`commands_logic.cpp:424`) ve 30 m'lik düzeltme sapması (`altitude.cpp:830`) sıfırlıyor; VTOL ve seyir akışında hiç sıfırlanmıyor.
+- Çıkarım: 40 m menzilli bir sensörde ilk okumadan 2 m fark gerekiyor. İlk okuma suda yüzerken (~0,3 m) alınırsa, 1–2,3 m'de seyreden araç `in_range`'i hiç kazanamaz. Bayrağı bir kez kaybederse alçakta geri alamaz. Bu durumda `Q_ASSIST_ALT` ve `check_land_final` sessizce baroya düşer.
+- Su yüzeyinden dönüş kesildiğinde de yükseklik kaynağı sıra 6'ya, yani baroya düşüyor.
 
 ### 4.3 Assist tiltrotorda ne yapıyor?
 
@@ -255,9 +257,9 @@ SITL koşu 1'de: "SIM Hit ground" 136,28 s → "Land complete" 142,53 s (6,25 s)
 |---|---|---|---|---|
 | 1 | Pencere içinde EKF yüksekliği ±0,2 m'den fazla değişince sıfırlanıyor | Dalgayla inip çıkan, yüzen gövdede "Land complete" ve disarm hiç gelmeyebilir. Motorlar alt sınırda dönmeye devam eder. | `quadplane.cpp:3553-3557` | Çıkarım |
 | 2 | Gaz alt sınırdan çıkınca `should_relax` sıfırlanıyor | Dalga gövdeyi itince Z kontrolcüsü gaz verirse sayaç baştan başlar | `quadplane.cpp:1221-1225` | Çıkarım |
-| 3 | QLAND'da ivme > 3 m/s² ya da açı hatası > 30° → throttle mix max | Gövde çarpması `is_throttle_mix_min()` koşulunu bozar | `quadplane.cpp:4148-4150`, `:4180-4194` | Mekanizma kodda var, etkisi çıkarım |
+| 3 | Autopilot gazlı VTOL'da (QLAND dahil): ivme > 3 m/s², açı hatası > 30°, açı talebi > 15° ya da alçalma talebi yok → throttle mix max | Gövde çarpması `is_throttle_mix_min()` koşulunu bozar | `quadplane.cpp:4148-4150`, `:4180-4194` | Mekanizma kodda var, etkisi çıkarım |
 | 4 | `in_range` sonrası filtresiz ham okuma | Köpük ya da dalga tepesi okuması erken `LAND_FINAL`'a yol açar. Sonuç yavaş iniş, erken disarm değil. | `altitude.cpp:755`; `quadplane.cpp:3611-3614` | Çıkarım |
-| 5 | Kötü örnek gelince `in_range` hemen düşüyor | Yükseklik baroya düşüyor. Yeniden `in_range` için ilk okumadan farklı 10 örnek gerekiyor. | `altitude.cpp:759-772`, `:794-797` | Mekanizma kodda var |
+| 5 | Kötü örnek gelince `in_range` hemen düşüyor | Yükseklik baroya düşüyor. Yeniden `in_range` için boot'taki ilk okumadan farklı 10 örnek gerekiyor; ilk okuma VTOL akışında sıfırlanmadığı için alçakta bu hiç sağlanmayabilir (§4.2). | `altitude.cpp:751-772`, `:794-797`; `commands_logic.cpp:424` | Mekanizma kodda var |
 | 6 | Sensör yokken final eşiği baroya göre | Baro yüksek okursa temas 1,5 m/s'ye kadar hızla olabilir | `quadplane.cpp:3611`, `:1283-1285` | Çıkarım |
 | 7 | Final'de `set_touchdown_expected(true)` | EKF baro füzyonu yer etkisi moduna giriyor | `quadplane.cpp:2893-2897`; `mode_qloiter.cpp:165-167` | Sudaki etkisi doğrulanmadı |
 | 8 | Kaldırma kuvveti (buoyancy) modeli | Kodda yok | — | — |
@@ -295,7 +297,7 @@ SITL koşu 1'de: "SIM Hit ground" 136,28 s → "Land complete" 142,53 s (6,25 s)
 | # | Çakışma | Neden önemli | Referans |
 |---|---|---|---|
 | 1 | Assist ve geçiş durum makinesi her sabit kanat modunda çalışıyor | VTOL motorlar ve tilt her an devreye girebilir, pitch ±3° ile sınırlanır | `ArduPlane/quadplane.cpp:1768-1783` |
-| 2 | `Q_TRANS_FAIL` → QLAND/QRTL | Uzun assist, aracı moddan çıkarıp suya dikey indirir ya da 10 m'ye tırmandırır | `quadplane.cpp:1550-1575`; `mode_qrtl.cpp:26-49` |
+| 2 | `Q_TRANS_FAIL` → QLAND/QRTL | Uzun assist, aracı moddan çıkarıp suya dikey indirir ya da 10–15 m'ye tırmandırır (dönüş yarıçapı dışında `Q_RTL_ALT`) | `quadplane.cpp:1550-1575`; `mode_qrtl.cpp:26-49` |
 | 3 | `Q_ASSIST_ALT` | Seyir yüksekliğine eşit ya da büyükse assist sürekli açık kalır | `VTOL_Assist.cpp:104-113` |
 | 4 | Pitch ve TECS sınırları | Assist sırasında, `does_auto_throttle()` true ise pitch ±3°/±8° ile sınırlanır, TECS'e sentetik hava hızı verilir | `quadplane.cpp:4668-4703`, `:1534-1539` |
 | 5 | TECS sahipliği | `does_auto_throttle()` true ise TECS 10 Hz'de pitch ve gaz yazar (`Plane.cpp:638-672`). Kendi gaz/pitch denetleyicisini yazan mod ya bunu false döndürmeli ya da TECS'i bilinçli yönetmeli (çıkarım). | `ArduPlane/Plane.cpp:224`, `:638-672` |
@@ -316,7 +318,7 @@ SITL koşu 1'de: "SIM Hit ground" 136,28 s → "Land complete" 142,53 s (6,25 s)
 
 | Olay | Metin | Önem | Referans | Not |
 |---|---|---|---|---|
-| Geçiş başladı (Q modundan) | "Transition airspeed wait" | INFO | `quadplane.cpp:1546` | Bir kez |
+| Geçiş başladı (assist kapalıyken) | "Transition airspeed wait" | INFO | `quadplane.cpp:1546` | Yalnızca assist aktif değilse (ör. `Q_ASSIST_SPEED=-1`). Pratikte Q → sabit kanat geçişinde hız assist'i önce tetiklendiği için "Transition started airspeed" çıkıyor (`:1493-1505`). |
 | Geçiş/assist başladı | "Transition started airspeed %.1f" | INFO | `quadplane.cpp:1500` | **Hız assist'inin tek işareti.** AUTO VTOL kalkışından sonra da bu mesaj çıkıyor (SITL). |
 | Hava hızı eşiği aşıldı | "Transition airspeed reached %.1f" | INFO | `quadplane.cpp:1587` | |
 | Geçiş bitti | "Transition FW done" / "Transition done" | INFO | `quadplane.cpp:1527` / `:1648` | Tiltrotorda genelde ilki |
@@ -398,7 +400,7 @@ Zamanlar SITL saatine göre (boot'tan itibaren, s).
 | 30,28 | Kalkış tamam (10,1 m); "Transition started airspeed 1.1" |
 | 34,28 | "Transition airspeed reached 13.2" (log: `Trn` 0→1 34,52 s'de) |
 | 35,53 | "Transition FW done"; VTOL_STATE FW (log: `Trn=2`, `Ast=0` 35,64 s'de) |
-| 35,5–73,3 | İleri uçuş: 18–27,6 m/s, 9,7–17,4 m, tilt servosu 2000 µs |
+| 35,5–73,3 | İleri uçuş: 15,6–27,6 m/s, 9,7–17,4 m (9,7 m VTOL yaklaşma sırasında), tilt servosu 2000 µs |
 | 73,78 | "VTOL airbrake v=19.1 d=128 sd=129 h=14.0"; TRANSITION_TO_MC |
 | 79,03 / 81,78 | "VTOL position1" / "VTOL position2 started" |
 | 87,28 / 96,78 | "Land descend started" / "Land final started" |
@@ -432,6 +434,7 @@ Ham log'lar (`messages.log`, `events.csv`, `flight.csv`, `.BIN`) oturumun geçic
 
 1. **Yüzey etkisi modu.** Mesafe sensörüyle suya göre yükseklik tutan bir `Mode` alt sınıfı.
    - Dalga filtresi gerekiyor; mevcut `rangefinder_state`, `in_range` olduktan sonra ham değer veriyor.
+   - Mod, `rangefinder_state.in_range`'e değil kendi geçerlilik kontrolüne dayanmalı. `in_range` kapısı, boot'taki ilk okumaya bağlı ve alçakta hiç açılmayabilir (§4.2).
    - Sensör kesildiğinde ne yapılacağı belirlenmeli.
    - Pitch, gaz ve flap kontrolü yazılmalı. TECS'le ilişki de net olmalı: `does_auto_throttle()` ve `update_target_altitude()` kararları.
    - Mod numarası; zorunlu `switch` girişleri ve failsafe eylemleri eklenmeli (§6.1).
@@ -439,7 +442,7 @@ Ham log'lar (`messages.log`, `events.csv`, `flight.csv`, `.BIN`) oturumun geçic
 3. **QuadPlane ile çakışma politikası.** Yeni modda assist ve geçiş makinesi ne yapacak?
    - Seçenek a: Modu MANUAL/ACRO/TRAINING listesine eklemek. Assist tamamen kapanır.
    - Seçenek b: Assist'i açık bırakıp kendi tetik koşullarımızı yazmak.
-   - `Q_ASSIST_ALT`, `Q_TRANS_FAIL` ve pitch sınırlarının bu modda devre dışı kalması garanti edilmeli.
+   - `Q_ASSIST_ALT`, `Q_TRANS_FAIL` ve pitch sınırlarının bu modda devre dışı kalması garanti edilmeli; ancak yalnızca madde 4'teki yüzey etkisi güvenlik ağı devredeyken.
 4. **Yüzey etkisine özel güvenlik ağı.** Mevcut assist, hız ve yükseklik kaybına 1–3 m'de yeterince hızlı ve doğru yönde tepki vermiyor (§4.4). İhtiyaçlar:
    - Rangefinder tabanlı ve dalgaya dayanıklı bir "suya çok yakın" algısı.
    - Hız kaybında tilt'i geri kaldırmadan itki ekleyen bir tepki.
@@ -453,7 +456,7 @@ Ham log'lar (`messages.log`, `events.csv`, `flight.csv`, `.BIN`) oturumun geçic
 7. **Parametre seti.**
    - `Q_ASSIST_SPEED`, `Q_TILT_MAX` ile ulaşılabilen hızın altında olmalı. Aksi halde geçiş hiç bitmiyor (SITL koşu 1).
    - `Q_TRANS_FAIL` ve `Q_TRANS_FAIL_ACT` su için bilinçli seçilmeli.
-   - `RNGFND_LANDING` açılmalı.
+   - `RNGFND_LANDING` açılmalı. Ama `in_range` kapısının alçakta açılmayabileceği (§4.2) önce SITL'de ya da sahada test edilmeli.
    - `Q_LAND_FINAL_ALT`, `Q_LAND_ALTCHG` ve `Q_ASSIST_ALT` ayarlanmalı.
 8. **GCS tarafı.**
    - Hız assist'i başlangıcı ve assist bitişi için mesaj yok. Gerekirse eklenmeli ya da `EXTENDED_SYS_STATE` ve `QTUN.Ast` izlenmeli.
