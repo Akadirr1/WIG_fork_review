@@ -15,7 +15,7 @@
 
 | # | Soru | Sonuç |
 |---|---|---|
-| 1 | `EK3_RNG_USE_HGT=70` iken EKF dikey kalkış ve inişte yüksekliği mesafe sensöründen alıyor mu? | **Evet.** Kalkışta 0,8 m'den itibaren sensörü kullanıyor. Geçişte yatay hız ~2 m/s'yi geçince (12,2 m) baroya dönüyor. İnişte 9,4 m'de, hız < 1 m/s iken yeniden sensöre geçiyor. Geçişlerde EKF yüksekliğinde **sıçrama yok** (en fazla 0,2 m). |
+| 1 | `EK3_RNG_USE_HGT=70` iken EKF dikey kalkış ve inişte yüksekliği mesafe sensöründen alıyor mu? (aktif kaynak DataFlash'a yazılmıyor, `XKF5.BOf`'tan çıkarıldı) | **Evet.** Kalkışta 0,8 m'den itibaren sensörü kullanıyor. Geçişte yatay hız ~2 m/s'yi geçince (12,2 m) baroya dönüyor. İnişte 9,4 m'de, hız < 1 m/s iken yeniden sensöre geçiyor. Geçişlerde EKF yüksekliğinde **sıçrama yok** (en fazla 0,2 m). |
 | 1b | Kalkışta baroya +5 m sapma | EKF sapmayı yok saydı. Sapma `BOf`'ta öğrenildiği için baroya dönüşte sıçrama olmadı; seyirde kalan hata 0,26 m. |
 | 1c | Seyirde baroya +3 m sapma (ek deneme) | EKF seyirde 3 m hatalı uçtu. Hata, EKF'nin arazi tahminine yazıldığı için inişte sensöre geçmek onu **düzeltmedi**: araç yere değdiğinde EKF 3,0 m gösteriyordu. |
 | 2 | `Q_ASSIST_SPEED=18`, `Q_TRANS_FAIL=15` | **Evet.** Geçiş başladıktan tam **15,0 s** sonra CRITICAL "Transition failed, exceeded time limit" geldi ve araç **QLAND**'e geçti. |
@@ -57,6 +57,11 @@ EKF3'ün aktif yükseklik kaynağı (`activeHgtSource`) **hiçbir log alanına d
 | Geçiş koşulları | Sensöre geçiş: yükseklik < 0,7 × (`RNGFND1_MAX` × `EK3_RNG_USE_HGT`/100) = **9,8 m**, yatay hız < max(`RNG_USE_SPD`−1, `RNG_USE_SPD`/2) = **1 m/s**. Baroya dönüş: yükseklik > **14 m** ya da yatay hız > **2 m/s**. | `AP_NavEKF3_PosVelFusion.cpp:1221-1258`; `EK3_RNG_USE_HGT` varsayılan −1 `AP_NavEKF3.cpp:488`; `EK3_RNG_USE_SPD` varsayılan 2,0 `:532` |
 
 Log'dan bulduğum geçiş anları bu eşiklerle birebir uyuşuyor.
+
+- **MAVLink tarafında bir işaret var:** `EKF_STATUS_REPORT.terrain_alt_variance`, `EK3_RNG_USE_HGT>0` iken yalnızca kaynak mesafe sensörüyken sıfırdan farklı yazılıyor (`AP_NavEKF3_Outputs.cpp:643-645`).
+- 1a'yı bu mesajı da kaydederek tekrar uçurdum. İnişte BOf'la uyumlu çıktı: 92,56 s'de sensöre, 109,06 s'de sensörden çıkış (BOf: 92,67 / 109,26).
+- **Ama kalkışta sıfır kaldı.** BOf ve 1b'deki baro sapması testi, EKF'nin kalkışta sensörü kullandığını gösteriyor. Yani bu alan kalkışta güvenilir bir gösterge değil. Nedeni doğrulanmadı; çıkarımım şu: değer, kalkıştan önce hiç hesaplanmamış bir test oranından (`auxRngTestRatio`) geliyor.
+- Kaynak değişince EKF yüksekliği `ResetPositionD` ile ölçülen değere sıfırlanıyor (`AP_NavEKF3_PosVelFusion.cpp:1398-1402`). Bu sıfırlama küçük kaldı çünkü ölçüm zaten EKF yüksekliğiyle tutarlıydı.
 
 ### 1a: `EK3_RNG_USE_HGT=70` (baro sapması yok)
 
@@ -171,7 +176,7 @@ Bütün denemelerde disarm'dan sonra CRITICAL "PreArm: Radio failsafe on" geldi.
 - Bu düşük seviyeye neden indiğini (gaz bastırma mı, başka bir mekanizma mı) kodda izlemedim: **doğrulanmadı**.
 
 **Sonuç:**
-- `Q_ASSIST_SPEED`, süzülüşün suya değme hızından düşükse, Glide aracı suya süzülerek indiriyor.
+- `Q_ASSIST_SPEED`, süzülüşün temas hızından düşükse, Glide aracı süzülerek yere indiriyor. Deneme karada yapıldı; suya etkisi çıkarım.
 - Ama temastan sonra assist devreye giriyor: VTOL motorları kısa bir an güç alıp tilt'i dikeye kaldırıyor, sonra araç silahlı ve boşta kalıyor.
 - Disarm ancak `Q_TRANS_FAIL>0` ile, QLAND üzerinden geliyor.
 
@@ -183,11 +188,13 @@ Bütün denemelerde disarm'dan sonra CRITICAL "PreArm: Radio failsafe on" geldi.
 
 ## Bizim için çıkanlar
 
+Bunlar tek SITL koşusundan ve varsayılan modelden çıktı. Gerçek araçta parametre değiştirmeden önce HIL ya da bağlı testle doğrulanmalı.
+
 1. `EK3_RNG_USE_HGT`, kalkış ve iniş için kullanılabilir. Ama yalnızca hız < 2 m/s iken devrede ve seyirdeki baro hatasını düzeltmiyor (1c). Yüzey etkisi modu EKF yüksekliğine değil, doğrudan mesafe sensörüne dayanmalı.
 2. Seyirde RC kaybında Glide istiyorsak iki şey gerekiyor:
-   - `Q_ASSIST_SPEED`, süzülüşün temas hızının altında olmalı.
+   - `Q_ASSIST_SPEED`, süzülüşün temas hızının altında olmalı. Ancak bu parametre bütün uçuşta stall'a karşı assist eşiği. Düşürmek normal uçuştaki korumayı da zayıflatıyor; failsafe'e özel bir çözüm (kendi kodumuz) daha doğru.
    - Temastan sonra motorların durması için ya `Q_TRANS_FAIL > 0` (QLAND üzerinden disarm) ya da kendi kodumuz gerekiyor. Yoksa araç suda silahlı kalıyor.
-3. Kalkışta RC kaybı korumasına güvenmek için `FS_LONG_TIMEOUT`, kalkış süresinden kısa olmalı. Alternatifi, kalkışı kendi kodumuzla bağlamak.
+3. Kalkışta RC kaybı korumasına güvenmek için iki yol var. Tercih edilen, kalkışı kendi kodumuzla bağlamak. Diğeri `FS_LONG_TIMEOUT`'u kalkış süresinden kısa tutmak; ama bu her aşamaya uygulanıyor ve Glide ile birlikte kısa RC kesintilerinde de süzülüşe sokar. Bu kombinasyon test edilmedi.
 4. `Q_TRANS_FAIL`, assist'i de sınırlıyor. Seyirde uzun bir assist de QLAND'e götürür (önceki analiz §2.4).
 
 **Ham veriler:**
