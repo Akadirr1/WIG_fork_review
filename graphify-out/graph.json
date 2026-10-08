@@ -253,7 +253,7 @@
       "node_kind": "heading",
       "norm_label": "1a: `ek3_rng_use_hgt=70` (baro sapmas\u0131 yok)",
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L61"
+      "source_location": "L66"
     },
     {
       "id": "analiz_sitl_vtol_2_1b_ve_1c_baroya_sapma",
@@ -265,7 +265,7 @@
       "node_kind": "heading",
       "norm_label": "1b ve 1c: baroya sapma",
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L79"
+      "source_location": "L84"
     },
     {
       "id": "analiz_sitl_vtol_2_2_ge\u00e7i\u015f_tak\u0131l\u0131nca_qland",
@@ -277,7 +277,7 @@
       "node_kind": "heading",
       "norm_label": "2. gecis tak\u0131l\u0131nca qland",
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L98"
+      "source_location": "L103"
     },
     {
       "id": "analiz_sitl_vtol_2_3_rc_kayb\u0131_a\u015famaya_g\u00f6re_sim_rc_fail_1",
@@ -289,7 +289,7 @@
       "node_kind": "heading",
       "norm_label": "3. rc kayb\u0131 asamaya gore (`sim_rc_fail=1`)",
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L116"
+      "source_location": "L121"
     },
     {
       "id": "analiz_sitl_vtol_2_4_seyirde_glide_fs_long_actn_2_ve_dikey_motor_yard\u0131m\u0131",
@@ -301,7 +301,7 @@
       "node_kind": "heading",
       "norm_label": "4. seyirde glide (`fs_long_actn=2`) ve dikey motor yard\u0131m\u0131",
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L142"
+      "source_location": "L147"
     },
     {
       "id": "analiz_sitl_vtol_2_bizim_i\u00e7in_\u00e7\u0131kanlar",
@@ -313,7 +313,7 @@
       "node_kind": "heading",
       "norm_label": "bizim icin c\u0131kanlar",
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L184"
+      "source_location": "L189"
     },
     {
       "id": "analiz_sitl_vtol_2_hangi_log_alan\u0131nda_g\u00f6r\u00fcn\u00fcyor",
@@ -1334,7 +1334,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L61",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -1345,7 +1345,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L79",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_2_ge\u00e7i\u015f_tak\u0131l\u0131nca_qland",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -1356,7 +1367,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L116",
+      "source_location": "L121",
       "weight": 1.0
     },
     {
@@ -1378,7 +1389,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L142",
+      "source_location": "L147",
       "weight": 1.0
     },
     {
@@ -1389,7 +1400,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L184",
+      "source_location": "L189",
       "weight": 1.0
     },
     {
@@ -1412,17 +1423,6 @@
       "confidence_score": 1.0,
       "source_file": "ANALIZ_SITL_VTOL_2.md",
       "source_location": "L48",
-      "weight": 1.0
-    },
-    {
-      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
-      "target": "analiz_sitl_vtol_2_2_ge\u00e7i\u015f_tak\u0131l\u0131nca_qland",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "ANALIZ_SITL_VTOL_2.md",
-      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -1768,5 +1768,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "8fd146715283c4ca8abb98e3361f6a3ab0729528"
+  "built_at_commit": "0bd64fe40c779b8f5f32afa64246210ac4ed02db"
 }
