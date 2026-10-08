@@ -1,0 +1,13 @@
+{
+  "0": "`squilter/ground_effect_mode` Dalı Analizi: WIG Aracımıza Taşınabilirlik",
+  "1": "c) Kontrol döngüsü",
+  "2": "f) Güvenlik",
+  "3": "e) Mevcut sistemlerle ilişki",
+  "4": "g) Güncel sürüme taşıma",
+  "5": "ArduPlane 4.7.1'de Tiltrotor VTOL: WIG İçin Fizibilite",
+  "6": "2. Tiltrotor ileri geçişi (hover → ileri uçuş)",
+  "7": "4. Dikey motorların ileri uçuşta yardıma girmesi (assist)",
+  "8": "1. VTOL kalkışı",
+  "9": "5. VTOL iniş",
+  "10": "SITL Denemeleri 2: EKF'de Mesafe Sensörü Yüksekliği, Geçiş Hatası ve RC Kaybı"
+}
