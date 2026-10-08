@@ -8,5 +8,6 @@
   "6": "2. Tiltrotor ileri geçişi (hover → ileri uçuş)",
   "7": "4. Dikey motorların ileri uçuşta yardıma girmesi (assist)",
   "8": "1. VTOL kalkışı",
-  "9": "5. VTOL iniş"
+  "9": "5. VTOL iniş",
+  "10": "SITL Denemeleri 2: EKF'de Mesafe Sensörü Yüksekliği, Geçiş Hatası ve RC Kaybı"
 }

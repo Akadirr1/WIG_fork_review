@@ -220,6 +220,150 @@
       "source_location": "L65"
     },
     {
+      "id": "analiz_sitl_vtol_2",
+      "label": "ANALIZ_SITL_VTOL_2.md",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "analiz_sitl_vtol_2.md",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_1_ekf_y\u00fcksekli\u011fi_mesafe_sens\u00f6r\u00fcnden_mi_al\u0131yor",
+      "label": "1. EKF y\u00fcksekli\u011fi mesafe sens\u00f6r\u00fcnden mi al\u0131yor?",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1. ekf yuksekligi mesafe sensorunden mi al\u0131yor?",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L48"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_1a_ek3_rng_use_hgt_70_baro_sapmas\u0131_yok",
+      "label": "1a: `EK3_RNG_USE_HGT=70` (baro sapmas\u0131 yok)",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1a: `ek3_rng_use_hgt=70` (baro sapmas\u0131 yok)",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L61"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_1b_ve_1c_baroya_sapma",
+      "label": "1b ve 1c: baroya sapma",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "1b ve 1c: baroya sapma",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L79"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_2_ge\u00e7i\u015f_tak\u0131l\u0131nca_qland",
+      "label": "2. Ge\u00e7i\u015f tak\u0131l\u0131nca QLAND",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2. gecis tak\u0131l\u0131nca qland",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L98"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_3_rc_kayb\u0131_a\u015famaya_g\u00f6re_sim_rc_fail_1",
+      "label": "3. RC kayb\u0131 a\u015famaya g\u00f6re (`SIM_RC_FAIL=1`)",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "3. rc kayb\u0131 asamaya gore (`sim_rc_fail=1`)",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L116"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_4_seyirde_glide_fs_long_actn_2_ve_dikey_motor_yard\u0131m\u0131",
+      "label": "4. Seyirde Glide (`FS_LONG_ACTN=2`) ve dikey motor yard\u0131m\u0131",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "4. seyirde glide (`fs_long_actn=2`) ve dikey motor yard\u0131m\u0131",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L142"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_bizim_i\u00e7in_\u00e7\u0131kanlar",
+      "label": "Bizim i\u00e7in \u00e7\u0131kanlar",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "bizim icin c\u0131kanlar",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L184"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_hangi_log_alan\u0131nda_g\u00f6r\u00fcn\u00fcyor",
+      "label": "Hangi log alan\u0131nda g\u00f6r\u00fcn\u00fcyor?",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "hangi log alan\u0131nda gorunuyor?",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L50"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_k\u0131sa_\u00f6zet",
+      "label": "K\u0131sa \u00f6zet",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "k\u0131sa ozet",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L14"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_ortak_ayarlar",
+      "label": "Ortak ayarlar",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "ortak ayarlar",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L27"
+    },
+    {
+      "id": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "label": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "SITL Denemeleri 2: EKF'de Mesafe Sens\u00f6r\u00fc Y\u00fcksekli\u011fi, Ge\u00e7i\u015f Hatas\u0131 ve RC Kayb\u0131",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "sitl denemeleri 2: ekf'de mesafe sensoru yuksekligi, gecis hatas\u0131 ve rc kayb\u0131",
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L1"
+    },
+    {
       "id": "analiz_ground_effect_mode_dalga_ve_g\u00fcr\u00fclt\u00fc",
       "label": "Dalga ve g\u00fcr\u00fclt\u00fc",
       "_origin": "ast",
@@ -1161,6 +1305,127 @@
       "weight": 1.0
     },
     {
+      "source": "analiz_sitl_vtol_2",
+      "target": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_1_ekf_y\u00fcksekli\u011fi_mesafe_sens\u00f6r\u00fcnden_mi_al\u0131yor",
+      "target": "analiz_sitl_vtol_2_hangi_log_alan\u0131nda_g\u00f6r\u00fcn\u00fcyor",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_1_ekf_y\u00fcksekli\u011fi_mesafe_sens\u00f6r\u00fcnden_mi_al\u0131yor",
+      "target": "analiz_sitl_vtol_2_1a_ek3_rng_use_hgt_70_baro_sapmas\u0131_yok",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_1_ekf_y\u00fcksekli\u011fi_mesafe_sens\u00f6r\u00fcnden_mi_al\u0131yor",
+      "target": "analiz_sitl_vtol_2_1b_ve_1c_baroya_sapma",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_3_rc_kayb\u0131_a\u015famaya_g\u00f6re_sim_rc_fail_1",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L116",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_k\u0131sa_\u00f6zet",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_4_seyirde_glide_fs_long_actn_2_ve_dikey_motor_yard\u0131m\u0131",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L142",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_bizim_i\u00e7in_\u00e7\u0131kanlar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L184",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_ortak_ayarlar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_1_ekf_y\u00fcksekli\u011fi_mesafe_sens\u00f6r\u00fcnden_mi_al\u0131yor",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L48",
+      "weight": 1.0
+    },
+    {
+      "source": "analiz_sitl_vtol_2_sitl_denemeleri_2_ekf_de_mesafe_sens\u00f6r\u00fc_y\u00fcksekli\u011fi_ge\u00e7i\u015f_hatas\u0131_ve_rc_kayb\u0131",
+      "target": "analiz_sitl_vtol_2_2_ge\u00e7i\u015f_tak\u0131l\u0131nca_qland",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ANALIZ_SITL_VTOL_2.md",
+      "source_location": "L98",
+      "weight": 1.0
+    },
+    {
       "source": "analiz_vtol_tiltrotor",
       "target": "analiz_vtol_tiltrotor_arduplane_4_7_1_de_tiltrotor_vtol_wig_i_\u00e7in_fizibilite",
       "relation": "contains",
@@ -1503,5 +1768,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "abcd4db7396f88ba9a438e8b1bead2f582be45ab"
+  "built_at_commit": "8fd146715283c4ca8abb98e3361f6a3ab0729528"
 }
